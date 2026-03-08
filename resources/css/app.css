@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+/* @import './root.css';
+@import './auth.css'; */
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: "Roboto", sans-serif !important;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
