@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\LoginWebController;
+use App\Http\Controllers\Auth\RegisterWebController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\VerifyEmailWebController;
+use App\Http\Controllers\Auth\ResendVerificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,22 +16,17 @@ Route::middleware('guest')->group(function () {
         return view('signin');
     })->name('login');
 
-    // Route::get('/register', function () {
-    //     return view('signup');
-    // })->name('register');
-
-    // Route::post('/register', [AuthController::class, 'registerWeb']);
-    Route::post('/login', [AuthController::class, 'loginWeb']);
+    Route::post('/login', LoginWebController::class);
 });
 
 Route::get('/register', function () {
     return view('signup');
 })->name('register');
 
-Route::post('/register', [AuthController::class, 'registerWeb']);
+Route::post('/register', RegisterWebController::class);
 
 // Email verification route - public access (hash is the security)
-Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmailWeb'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', VerifyEmailWebController::class)->name('verification.verify');
 
 Route::middleware('auth')->group(function () {
     // Trang xác minh email
@@ -35,7 +34,7 @@ Route::middleware('auth')->group(function () {
         return view('auth.verify-email');
     })->name('verify.email.notice');
 
-    Route::post('/email/verification-notification', [AuthController::class, 'resendVerificationEmail'])->name('verification.send');
+    Route::post('/email/verification-notification', ResendVerificationController::class)->name('verification.send');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -43,5 +42,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', LogoutController::class)->name('logout');
 });
