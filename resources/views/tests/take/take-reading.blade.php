@@ -31,11 +31,11 @@
         <div class="resizable-panel left-panel">
             @foreach($questions as $index => $q)
                 @if($q->passage)
-                    <div class="passage-container @if(!$loop->first) d-none @endif" id="passage{{ $q->question_number }}">
+                    <div class="passage-container @if(!$loop->first) d-none @endif" id="passage{{ $loop->iteration }}">
                         {!! Str::markdown($q->passage->content) !!}
                     </div>
                 @else
-                    <div class="passage-container @if(!$loop->first) d-none @endif" id="passage{{ $q->question_number }}">
+                    <div class="passage-container @if(!$loop->first) d-none @endif" id="passage{{ $loop->iteration }}">
                         <p class="text-muted italic">This question does not have a passage.</p>
                     </div>
                 @endif
@@ -51,12 +51,12 @@
         <div class="resizable-panel right-panel">
             @foreach($questions as $q)
             <div class="question @if(!$loop->first) d-none @endif" 
-                 id="question{{ $q->question_number }}"
+                 id="question{{ $loop->iteration }}"
                  data-section-type="{{ $q->section_type }}"
                  data-question-type="{{ $q->question_type }}">
                 <div class="d-flex flex-column gap-3">
                     <div class="question-header d-flex align-items-center gap-3">
-                        <div class="number">{{ $q->question_number }}</div>
+                        <div class="number">{{ $loop->iteration }}</div>
                         <span class="bookmark">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark">
                                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -70,8 +70,8 @@
                         <div class="d-flex flex-column gap-3">
                             @foreach ($q->answerChoices->sortBy('order') as $choice)
                             <div class="answer-option">
-                                <input type="radio" id="q{{ $q->question_number }}{{ $choice->label }}" name="q{{ $q->question_number }}" value="{{ $choice->label }}">
-                                <label for="q{{ $q->question_number }}{{ $choice->label }}">{!! Str::markdown($choice->content) !!}</label>
+                                <input type="radio" id="q{{ $loop->parent->iteration }}{{ $choice->label }}" name="q{{ $loop->parent->iteration }}" value="{{ $choice->label }}">
+                                <label for="q{{ $loop->parent->iteration }}{{ $choice->label }}">{!! Str::markdown($choice->content) !!}</label>
                             </div>
                             @endforeach
                         </div>

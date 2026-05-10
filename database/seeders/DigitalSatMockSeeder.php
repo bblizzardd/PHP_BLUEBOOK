@@ -106,7 +106,6 @@ class DigitalSatMockSeeder extends Seeder
             $p = Passage::create(['content' => $data[2], 'passage_type' => 'single', 'genre' => 'humanities']);
             $q = Question::create([
                 'passage_id' => $p->id,
-                'question_number' => $i + 1,
                 'stem' => $data[3],
                 'question_type' => 'multiple_choice',
                 'difficulty' => 'medium',
@@ -128,7 +127,6 @@ class DigitalSatMockSeeder extends Seeder
             $p = Passage::create(['content' => $data[2] . " (Module 2 Version)", 'passage_type' => 'single', 'genre' => 'humanities']);
             $q = Question::create([
                 'passage_id' => $p->id,
-                'question_number' => $i + 1,
                 'stem' => $data[3],
                 'question_type' => 'multiple_choice',
                 'difficulty' => 'hard',
@@ -158,7 +156,6 @@ class DigitalSatMockSeeder extends Seeder
 
         foreach ($math_data as $i => $data) {
             $q = Question::create([
-                'question_number' => $i + 1,
                 'stem' => $data[2],
                 'question_type' => ($data[1] === 'MCQ' ? 'multiple_choice' : 'student_produced_response'),
                 'difficulty' => 'medium',
@@ -177,7 +174,6 @@ class DigitalSatMockSeeder extends Seeder
         // --- MATH QUESTIONS (MODULE 2) ---
         foreach ($math_data as $i => $data) {
             $q = Question::create([
-                'question_number' => $i + 1,
                 'stem' => $data[2] . " (Advanced)",
                 'question_type' => ($data[1] === 'MCQ' ? 'multiple_choice' : 'student_produced_response'),
                 'difficulty' => 'hard',
